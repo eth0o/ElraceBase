@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	 <!-- Action to create report-->
+	<report
+            id="action_parent_account_report"
+            model="account.tax.reports"
+            string="Chart of Account Hierarchy"
+            report_type="qweb-pdf"
+            name="skit_parent_account.parent_account"
+            file="skit_parent_account.parent_account"
+            /> 
+
+</odoo>

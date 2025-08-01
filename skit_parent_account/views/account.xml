@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- Inherit the account.account form  and add parent_account and is_parent -->
+	<record id="account_inherit" model="ir.ui.view">
+        <field name="name">Parent Account</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_form"/>
+        <field name="arch" type="xml">
+        <data>
+        <xpath expr="//field[@name='user_type_id']" position="after">
+               
+           		<field name="parent_account"/>
+           		<field name="is_parent"/>          
+           
+        </xpath>
+        </data>
+        </field>
+    </record>
+    
+    <!-- Creating a form page for parent.account model -->
+     <record id="view_account_parent_form" model="ir.ui.view">
+        <field name="name">Parent Account</field>
+        <field name="model">parent.account</field>
+        <field name="arch" type="xml">
+        	<form string="Account">
+                <sheet>
+                   <div>
+                            <h1 style="font-size: 1.9rem;">
+                                <div class="row">
+                                    <div class="col col-md-auto">
+                                        <label for="code" string="Code"/>
+                                        <div>
+                                            <field name="code" placeholder="e.g. 101000" class="oe_inline"/>
+                                        </div>
+                                    </div>
+                                    <div class="col col-md-8">
+                                        <label for="name" string="Name"/>
+                                        <div>
+                                            <field name="name"
+                                                   placeholder="e.g. Current Assets"
+                                                   class="oe_inline"
+                                                   style="width:80% !important;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </h1>
+                        </div>  
+                         <notebook>
+                            <page name="accounting" string="Accounting">
+                            <group>
+                            	<group>
+                            		<field name="types" />
+                            		<field name="parent_account_id"/>
+           							<field name="parent_tax_ids" widget="many2many_tags" />
+           							<field name="parent_tag_ids" widget="many2many_tags" />
+           							<field name="parent_allowed_journal_ids" widget="many2many_tags" />
+                            	</group>
+                            	<group>
+                            		 <field name="deprecated"/>
+                                     <field name="group_id"/>
+                                     <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                            	</group>
+                            </group>
+                            </page>
+                         </notebook>
+                     </sheet>
+                </form>
+	      
+        </field>
+      </record>
+      
+       <!-- Creating a tree page for parent.account model -->
+      <record id="view_account_parent_tree" model="ir.ui.view">
+        <field name="name">Parent Account</field>
+        <field name="model">parent.account</field>
+        <field name="arch" type="xml">
+	       <tree editable="top" create="1" delete="1" multi_edit="1" string="Parent Account">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="types"/>
+                    
+                </tree>
+        </field>
+      </record>
+      
+     <!-- Creating a kanban page for parent.account model -->
+    <record id="view_account_parent_kanban" model="ir.ui.view">
+            <field name="name">account.parent.kanban</field>
+            <field name="model">parent.account</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="types"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <strong><field name="name"/></strong>
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        <span class="badge badge-pill"><t t-esc="record.code.value"/></span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <strong>Type: </strong><t t-esc="record.types.value"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        
+        <record id="view_parent_account_search" model="ir.ui.view">
+            <field name="name">parent.account.search</field>
+            <field name="model">parent.account</field>
+            <field name="arch" type="xml">
+                <search string="Parent Account">
+                    <searchpanel class="account_root">
+                        <field name="root_id" icon="fa-filter" limit="0"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+    
+    <record id="action_account_parent_form" model="ir.actions.act_window">
+            <field name="name">Parent Accounts</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">parent.account</field>
+            <field name="view_mode">tree,kanban,form</field>
+           <!--  <field name="search_view_id" ref="view_account_search"/>-->
+            <field name="view_id" ref="view_account_parent_tree"/> 
+           
+        </record>
+    
+    <!-- Creating a new menu -->
+    <menuitem id="menu_parent_account" name="Parent Account" 
+		action="action_account_parent_form" 
+		sequence="9"
+		parent="account.account_account_menu" />
+</odoo>
+  

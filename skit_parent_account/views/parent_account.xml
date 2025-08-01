@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	 <!-- Report page design for Chart of Account Hierarchy -->
+    <template id="parent_account">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <div class="page" style="font-size: 20px !important;">
+                   <center><h3>Chart of Account Hierarchy </h3></center>
+                    <!-- <div class="row">
+                        <div class="col-4">
+                            <t t-if="data['date_from']"><strong><h4>From</h4></strong> <br/></t>
+                            <t t-if="data['date_to']"><strong><h4>to </h4></strong></t>
+                        </div>
+                   </div> -->
+                   <div class="row mt32">
+                        <div class="col-3">
+                            <strong>Date From:</strong>
+                            <p t-if="data['date_from']"></p>
+                        </div>
+                        <!-- <div class="col-3">
+                            <strong>Target Moves:</strong>
+                           	<p t-if="data['form']['target_move'] == 'all'">All Entries</p>
+                            <p t-if="data['form']['target_move'] == 'posted'">All Posted Entries</p>
+                        </div> -->
+                        <div class="col-3">
+                            <strong>Display Accounts:</strong>
+                            <!-- <p t-if="data['form'].get('display_account') == 'all'">All</p>
+                            <p t-if="data['form'].get('display_account') == 'movement'">With movements</p> -->
+                        </div>
+                        <div class="col-3">
+                            <strong>Report based on:</strong>
+                            <!-- <p t-if="data['form'].get('report_based_on') == 'accounts'">Accounts</p>
+                            <p t-if="data['form'].get('report_based_on') == 'account_type'">Account Type</p> -->
+                        </div>
+                    </div>
+
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                           
+                                <th>Code</th>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Initial Balance</th>
+                                <th>Debit</th>
+                                <th>Credit</th>
+                                <th>Ending Balance</th>
+                              
+                            </tr>
+                        </thead>
+                      </table>
+               </div>
+            </t>
+         </t>
+     </template>
+</odoo>

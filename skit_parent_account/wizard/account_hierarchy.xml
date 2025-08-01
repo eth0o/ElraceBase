@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	
+	<!-- Design popup for account.hierarchy -->	
+	 <record id="account_hierarchy_report_view" model="ir.ui.view">
+        <field name="name">Account Hiererchy</field>
+        <field name="model">account.hierarchy</field>
+        <field name="inherit_id" ref="account.account_common_report_view"/>
+        <field name="arch" type="xml">
+        	<field name="company_id" position="replace"/>
+        	<field name="journal_ids" position="replace"/>
+	        	<xpath expr="//field[@name='target_move']" position="after">
+		        	 <field name="display_account" widget="radio"/>
+		        	<!--  <label for="date_from" string="Date(s)"/>
+		                   <div class="o_date_format">
+		                   		<field name = 'date_from'/>
+		                   		<field name = 'date_to'/>
+		                   </div> -->
+		              <field name = 'auto_fold'/>
+		              <field name = 'report_based_on'/>                
+	        	</xpath>
+	        	<xpath expr="//button[@name='check_report']" position="after">
+	        		or 
+	        	<button name="check_report_xlsx" string="Print XLS" type="object" default_focus="1" class="oe_highlight"/>
+	        	</xpath>
+        
+        </field>
+      </record>
+	
+	<record id="action_account_hierarchy" model="ir.actions.act_window">
+        <field name="name">Chart of Account Hiererchy</field>
+        <field name="res_model">account.hierarchy</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="skit_parent_account.account_hierarchy_report_view"/>
+        <field name="target">new</field>
+       
+    </record>
+    
+     <!-- Creating a new menu -->
+	<menuitem id="menu_account_hierarchy" name="Chart of Account Hiererchy" 
+		action="action_account_hierarchy" 
+		sequence="13"
+		parent="account.menu_finance_entries" />
+</odoo>
