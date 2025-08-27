@@ -35,6 +35,7 @@
         'security/ir.model.access.csv',
         'views/zk_machine_view.xml',
         'views/zk_machine_attendance_view.xml',
+        'views/attendance_pull_wizard_view.xml',
         'data/download_data.xml'
 
     ],
