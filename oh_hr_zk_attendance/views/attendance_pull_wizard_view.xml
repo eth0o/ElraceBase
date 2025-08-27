@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_attendance_pull_wizard_form" model="ir.ui.view">
+        <field name="name">attendance.pull.wizard.form</field>
+        <field name="model">attendance.pull.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Pull Attendance Data">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>Pull Attendance Data</h1>
+                        <p>Select site and date range to pull attendance data from biometric devices</p>
+                    </div>
+                    <group>
+                        <group string="Location Settings">
+                            <field name="site_id" placeholder="Select site/location..."/>
+                            <field name="device_ids" widget="many2many_tags" attrs="{'invisible': [('site_id', '=', False)]}"/>
+                        </group>
+                        <group string="Date Settings">
+                            <field name="pull_type" widget="radio"/>
+                            <field name="from_date" attrs="{'readonly': [('pull_type', '=', 'today')], 'required': [('pull_type', '=', 'date_range')]}"/>
+                            <field name="to_date" attrs="{'readonly': [('pull_type', '=', 'today')], 'required': [('pull_type', '=', 'date_range')]}"/>
+                        </group>
+                    </group>
+                    <div class="alert alert-info" role="alert">
+                        <strong>Note:</strong>
+                        <ul>
+                            <li>Leave "Devices" empty to pull from all devices at the selected site</li>
+                            <li>If no site is selected, data will be pulled from all configured devices</li>
+                            <li>Only new attendance records will be added (duplicates are automatically filtered)</li>
+                        </ul>
+                    </div>
+                </sheet>
+                <footer>
+                    <button name="action_pull_attendance" string="Pull Attendance" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_attendance_pull_wizard" model="ir.actions.act_window">
+        <field name="name">Pull Attendance</field>
+        <field name="res_model">attendance.pull.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Add menu item -->
+    <menuitem id="attendance_pull_wizard_menu" 
+              parent="oh_hr_zk_attendance.zk_machine_menu" 
+              name="Pull Attendance" 
+              action="action_attendance_pull_wizard" 
+              sequence="2"/>
+</odoo>

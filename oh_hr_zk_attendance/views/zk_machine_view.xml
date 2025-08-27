@@ -10,6 +10,8 @@
                                 icon="fa-remove " confirm="Are you sure you want to do this?"/>
                     <button name="download_attendance" type="object" string="Download Data" class="oe_highlight"
                             icon="fa-download " confirm="Are you sure you want to do this?" />
+                    <button name="%(oh_hr_zk_attendance.action_attendance_pull_wizard)d" type="action" 
+                            string="Pull Attendance" class="btn-secondary" icon="fa-filter"/>
                 </header>
                 <sheet>
                     <div class="oe_title">
